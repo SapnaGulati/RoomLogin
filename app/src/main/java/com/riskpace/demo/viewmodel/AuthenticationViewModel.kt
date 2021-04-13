@@ -56,8 +56,19 @@ class AuthenticationViewModel : BaseViewModel() {
         }
     }
 
+    fun userName(): String {
+        return getPreference().getString(PreferenceManager.USER_NAME)
+    }
+
+    fun userPass(): String {
+        return getPreference().getString(PreferenceManager.PASSWORD)
+    }
+
     fun isLogin(): Boolean {
         return getPreference().getString(PreferenceManager.USER_NAME, "")
             .isNotEmpty() && getPreference().getString(PreferenceManager.PASSWORD, "").isNotEmpty()
     }
+//    fun isLogOut(): Boolean {
+//        return getPreference().getString(PreferenceManager.LOG_OUT, "")
+//    }
 }

@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -23,22 +24,21 @@ import androidx.navigation.ui.setupWithNavController
 import com.riskpace.demo.ui.authentication.SignInActivity
 import com.riskpace.demo.ui.authentication.SignUpActivity
 import com.riskpace.demo.ui.home.HomeFragment
+import com.riskpace.demo.viewmodel.AuthenticationViewModel
 
 class NavigationActivity : AppCompatActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var viewModel: AuthenticationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
 
         val tv = findViewById<TextView>(R.id.textView)
-        sharedPreferences = this.getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE)
-        editor = sharedPreferences.edit()
+        viewModel = ViewModelProvider(this).get(AuthenticationViewModel::class.java)
 //        tv.text = "Welcome $name"
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -108,9 +108,8 @@ class NavigationActivity : AppCompatActivity(),
         return when (item.itemId) {
             R.id.logout -> {
                 Toast.makeText(applicationContext, "Log-out Successfully", Toast.LENGTH_LONG).show()
-                editor.putString("isLoggedIn", "false")
-                editor.apply()
                 val i = Intent(this, SignInActivity::class.java)
+
                 startActivity(i)
                 finish()
                 true

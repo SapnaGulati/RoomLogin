@@ -13,12 +13,20 @@ import com.riskpace.demo.R
 import com.riskpace.demo.data.preferences.PreferenceManager
 import com.riskpace.demo.data.roomdatabase.AppDatabase.Companion.getDatabase
 import com.riskpace.demo.data.roomdatabase.userdata.UserDataDao
+import com.riskpace.demo.data.roomdatabase.userdata.UserDataItem
 import com.riskpace.demo.viewmodel.AuthenticationViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
 
     private lateinit var homeViewModel: HomeViewModel
-    private lateinit var userdata: UserDataDao
+    private lateinit var viewModel: AuthenticationViewModel
+    private lateinit var tName: TextView
+    private lateinit var tPass: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,11 +36,15 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val tName: TextView = root.findViewById(R.id.name)
-        val tEmail: TextView = root.findViewById(R.id.email)
-        val tPass: TextView = root.findViewById(R.id.password)
-        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE)
-        val item = getDatabase().getUserDetailDao()
+        viewModel = ViewModelProvider(this).get(AuthenticationViewModel::class.java)
+        tName = root.findViewById(R.id.name)
+        tPass = root.findViewById(R.id.password)
+
+        val name = viewModel.userName()
+        tName.text = "User-name: $name"
+        val pass = viewModel.userPass()
+        tPass.text = "Password: $pass"
+
 //        val name = getPreference.getString("name", null).toString()
 //        val password = sharedPreferences.getString("password", null).toString()
 //        val email = sharedPreferences.getString("email", null).toString()
@@ -46,7 +58,6 @@ class HomeFragment : Fragment() {
 //            }
 //        }
 //    }
-        tName.text = "Your Name: $item"
 //        tEmail.text = "Your Email: $email"
 //        tPass.text = "Your Password: $password"
         return root
