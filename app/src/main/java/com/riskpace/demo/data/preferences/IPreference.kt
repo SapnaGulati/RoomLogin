@@ -1,6 +1,5 @@
 package com.riskpace.demo.data.preferences
 
-
 interface IPreference {
 
     fun putString(key: String, value: String)

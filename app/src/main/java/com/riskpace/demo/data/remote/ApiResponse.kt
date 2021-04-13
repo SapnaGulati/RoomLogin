@@ -17,7 +17,4 @@ class ApiResponse<T> {
     @SerializedName(value = "data", alternate = ["DATA"])
     var data: T? = null
 
-//    fun isSuccess(): Boolean {
-//        return result == ApiService.SUCCESS.toString() || result.equals(ApiService.SUCCESS_STRING, ignoreCase = true)
-//    }
 }

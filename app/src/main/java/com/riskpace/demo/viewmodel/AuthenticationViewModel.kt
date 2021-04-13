@@ -37,7 +37,6 @@ class AuthenticationViewModel : BaseViewModel() {
         }
     }
 
-
     fun checkUserLogin(
         userName: String,
         password: String
@@ -62,11 +61,6 @@ class AuthenticationViewModel : BaseViewModel() {
 
     fun userPass(): String {
         return getPreference().getString(PreferenceManager.PASSWORD)
-    }
-
-    fun isLogin(): Boolean {
-        return getPreference().getString(PreferenceManager.USER_NAME, "")
-            .isNotEmpty() && getPreference().getString(PreferenceManager.PASSWORD, "").isNotEmpty()
     }
 
     fun loggedIn(loggedIn: Boolean){
