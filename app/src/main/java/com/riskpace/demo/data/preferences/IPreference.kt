@@ -15,11 +15,11 @@ interface IPreference {
 
     fun getInt(key: String, defaultValue: Int): Int
 
-    fun putBoolean(key: String, value: Boolean)
+    fun putBoolean(key: Boolean, value: Boolean)
 
     fun getBoolean(key: String): Boolean
 
-    fun getBoolean(key: String, defaultValue: Boolean): Boolean
+    fun getBoolean(key: Boolean, defaultValue: Boolean): Boolean
 
     fun putLong(key: String, value: Long)
 

@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val viewModel = ViewModelProvider(this).get(AuthenticationViewModel::class.java)
-        if (viewModel.isLogin())
+        if (viewModel.isLogOut())
             startActivity(Intent(this, NavigationActivity::class.java))
         else
             startActivity(Intent(this, SignInActivity::class.java))

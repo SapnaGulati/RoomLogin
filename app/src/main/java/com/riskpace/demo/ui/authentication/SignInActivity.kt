@@ -41,6 +41,7 @@ class SignInActivity : BaseActivity(R.layout.activity_sign_in), TextWatcher {
             btnSignIn.isEnabled = true
             when (state) {
                 AuthenticationViewModel.SUCCESS -> {
+                    viewModel.loggedIn(true)
                     startActivity(Intent(this, NavigationActivity::class.java))
                     finish()
                 }

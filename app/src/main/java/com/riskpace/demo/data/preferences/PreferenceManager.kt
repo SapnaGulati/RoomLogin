@@ -18,6 +18,7 @@ class PreferenceManager : IPreference {
 
         const val USER_NAME = "userName"
         const val PASSWORD = "password"
+        const val LOGGED_IN = false
     }
 
     private val sharedPreferencesEditor: SharedPreferences.Editor
@@ -64,16 +65,16 @@ class PreferenceManager : IPreference {
         return sharedPreferences.getInt(key, defaultValue)
     }
 
-    override fun putBoolean(key: String, value: Boolean) {
-        sharedPreferencesEditor.putBoolean(key, value).apply()
+    override fun putBoolean(key: Boolean, value: Boolean) {
+        sharedPreferencesEditor.putBoolean(key.toString(), value).apply()
     }
 
     override fun getBoolean(key: String): Boolean {
         return sharedPreferences.getBoolean(key, false)
     }
 
-    override fun getBoolean(key: String, defaultValue: Boolean): Boolean {
-        return sharedPreferences.getBoolean(key, defaultValue)
+    override fun getBoolean(key: Boolean, defaultValue: Boolean): Boolean {
+        return sharedPreferences.getBoolean(key.toString(), defaultValue)
     }
 
     override fun putLong(key: String, value: Long) {

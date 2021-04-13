@@ -46,7 +46,7 @@ class AuthenticationViewModel : BaseViewModel() {
             val item = getDatabase().getUserDetailDao().isUserNameExist(userName)
             when {
                 item == null -> isLogin?.invoke(USER_NOT_EXIST)
-                item.userPassword.equals(password).not() -> isLogin?.invoke(PASSWORD_WRONG)
+                (item.userPassword == password).not() -> isLogin?.invoke(PASSWORD_WRONG)
                 else -> {
                     getPreference().putString(PreferenceManager.USER_NAME, userName)
                     getPreference().putString(PreferenceManager.PASSWORD, password)
@@ -68,7 +68,12 @@ class AuthenticationViewModel : BaseViewModel() {
         return getPreference().getString(PreferenceManager.USER_NAME, "")
             .isNotEmpty() && getPreference().getString(PreferenceManager.PASSWORD, "").isNotEmpty()
     }
-//    fun isLogOut(): Boolean {
-//        return getPreference().getString(PreferenceManager.LOG_OUT, "")
-//    }
+
+    fun loggedIn(loggedIn: Boolean){
+        getPreference().putBoolean(PreferenceManager.LOGGED_IN, loggedIn)
+    }
+
+    fun isLogOut(): Boolean {
+        return getPreference().getBoolean(PreferenceManager.LOGGED_IN, false)
+    }
 }

@@ -39,7 +39,7 @@ class NavigationActivity : AppCompatActivity(),
 
         val tv = findViewById<TextView>(R.id.textView)
         viewModel = ViewModelProvider(this).get(AuthenticationViewModel::class.java)
-//        tv.text = "Welcome $name"
+        tv.text = "Welcome ${viewModel.userName()}"
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -109,7 +109,7 @@ class NavigationActivity : AppCompatActivity(),
             R.id.logout -> {
                 Toast.makeText(applicationContext, "Log-out Successfully", Toast.LENGTH_LONG).show()
                 val i = Intent(this, SignInActivity::class.java)
-
+                viewModel.loggedIn(false)
                 startActivity(i)
                 finish()
                 true
