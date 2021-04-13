@@ -11,7 +11,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -53,11 +52,9 @@ class NavigationActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.navigation_home -> {
-                NavOptions.Builder().setPopUpTo(R.id.mobile_navigation, true).build()
                 Navigation.findNavController(this, R.id.nav_host_fragment)
                     .navigate(R.id.navigation_home)
                 supportActionBar?.title = "Home"
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 true
             }
             R.id.navigation_dashboard -> {
@@ -65,7 +62,6 @@ class NavigationActivity : AppCompatActivity(),
                     Navigation.findNavController(this, R.id.nav_host_fragment)
                         .navigate(R.id.navigation_dashboard)
                     supportActionBar?.title = "Dashboard"
-                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 true
             }
@@ -73,9 +69,8 @@ class NavigationActivity : AppCompatActivity(),
                 if (isValidDestination(R.id.navigation_notifications)) {
                     Navigation.findNavController(this, R.id.nav_host_fragment)
                         .navigate(R.id.navigation_notifications)
+                    supportActionBar?.title = "Notification"
                 }
-                supportActionBar?.title = "Notification"
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 true
             }
             else -> false

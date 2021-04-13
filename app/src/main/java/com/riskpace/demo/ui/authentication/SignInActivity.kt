@@ -43,7 +43,6 @@ class SignInActivity : BaseActivity(R.layout.activity_sign_in), TextWatcher {
                 AuthenticationViewModel.SUCCESS -> {
                     viewModel.loggedIn(true)
                     startActivity(Intent(this, NavigationActivity::class.java))
-                    finish()
                 }
                 AuthenticationViewModel.USER_NOT_EXIST -> {
                     makeToast(getString(R.string.user_not_exist))
