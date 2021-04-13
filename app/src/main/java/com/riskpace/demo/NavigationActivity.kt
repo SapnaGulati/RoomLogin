@@ -1,8 +1,6 @@
 package com.riskpace.demo
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -15,15 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.riskpace.demo.ui.authentication.SignInActivity
-import com.riskpace.demo.ui.authentication.SignUpActivity
-import com.riskpace.demo.ui.home.HomeFragment
 import com.riskpace.demo.viewmodel.AuthenticationViewModel
 
 class NavigationActivity : AppCompatActivity(),
@@ -40,8 +33,6 @@ class NavigationActivity : AppCompatActivity(),
         val tv = findViewById<TextView>(R.id.textView)
         viewModel = ViewModelProvider(this).get(AuthenticationViewModel::class.java)
         tv.text = "Welcome ${viewModel.userName()}"
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -106,7 +97,7 @@ class NavigationActivity : AppCompatActivity(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.logout -> {
+            R.id.logout -> {super.onBackPressed()
                 Toast.makeText(applicationContext, "Log-out Successfully", Toast.LENGTH_LONG).show()
                 val i = Intent(this, SignInActivity::class.java)
                 viewModel.loggedIn(false)
